@@ -1,15 +1,15 @@
 var React = require('react');
 var ListContainer = require('./components/ListContainer');
-var ShowOSM = require('./components/ShowOSM');
+var OsmEditer = require('./components/OsmEditer');
 
 var App = React.createClass({
   render: function(){
     return (
       <div className="container">
         <div className="row">
-          test
+          ts
           <ListContainer />
-          <ShowOSM />
+          <OsmEditer />
         </div>
       </div>
     )

@@ -46,16 +46,16 @@
 
 	var React = __webpack_require__(1);
 	var ListContainer = __webpack_require__(148);
-	var ShowOSM = __webpack_require__(159);
+	var OsmEditer = __webpack_require__(159);
 
 	var App = React.createClass({displayName: "App",
 	  render: function(){
 	    return (
 	      React.createElement("div", {className: "container"}, 
 	        React.createElement("div", {className: "row"}, 
-	          "test", 
+	          "ts", 
 	          React.createElement(ListContainer, null), 
-	          React.createElement(ShowOSM, null)
+	          React.createElement(OsmEditer, null)
 	        )
 	      )
 	    )
@@ -19877,12 +19877,12 @@
 	var todoStore = __webpack_require__(151);
 	var todoActions = __webpack_require__(158);
 
-	var ShowOSM = React.createClass({displayName: "ShowOSM",
+	var OsmEditer = React.createClass({displayName: "OsmEditer",
 	  
 	    componentWillMount() {
 	      const script = document.createElement("script");
 
-	        script.src = "/OSMBuildings.js";
+	        script.src = "http://openlayers.org/api/OpenLayers.js";
 	        //script.async = true;
 
 	        document.body.appendChild(script);
@@ -19892,50 +19892,12 @@
 
 	    },
 
-	    initalMap(){ 
-	      osmb = new OSMBuildings({
-	        //baseURL: './OSMBuildings',
-	        zoom: 16,
-	        minZoom: 16,
-	        maxZoom: 19,
-	        position: { latitude:52.52000, longitude:13.41000 },
-	        state: true, // stores map position/rotation in url
-	        effects: ['shadows'],
-	        attribution: '© 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>'
-	      });
-	      osmb.appendTo('map');
-
-	      osmb.addMapTiles(
-	        'https://{s}.tiles.mapbox.com/v3/osmbuildings.kbpalbpk/{z}/{x}/{y}.png',
-	        {
-	          attribution: '© Data <a href="https://openstreetmap.org/copyright/">OpenStreetMap</a> · © Map <a href="https://mapbox.com/">Mapbox</a>'
-	        }
-	      );
-	    },
-
-	    addBuilding(){
-	      osmb.addGeoJSONTiles('https://{s}.data.osmbuildings.org/0.2/anonymous/tile/{z}/{x}/{y}.json');
-	      osmb.on('pointermove', function(e) {
-	        osmb.getTarget(e.detail.x, e.detail.y, function(id) {
-	          if (id) {
-	            osmb.highlight(id, '#f08000');
-	          } else {
-	            osmb.highlight(null);
-	          }
-	        });
-	      });
-
-	    },
-	    interAction(){
-
-	    },
 	  render: function(){
 	    return (
 	      React.createElement("div", {className: "col-sm-6"}, 
 	        React.createElement("div", {className: "col-sm-12"}, 
-	          React.createElement("div", {id: "map", onmouseover: this.interAction}, 
-	            React.createElement("button", {type: "button", onClick: this.initalMap}, "Inital Map"), 
-	            React.createElement("button", {type: "button", onClick: this.addBuilding}, "Add Building")
+	          React.createElement("div", {id: "map"}, 
+	            React.createElement("button", {type: "button", onClick: this.initalMap}, "Inital Map")
 	          )
 	        )
 	      )
@@ -19943,7 +19905,7 @@
 	  }
 	});
 
-	module.exports = ShowOSM;
+	module.exports = OsmEditer;
 
 /***/ }
 /******/ ]);
