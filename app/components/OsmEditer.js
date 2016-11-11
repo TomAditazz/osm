@@ -55,7 +55,14 @@ var OsmEditer = React.createClass({
     },
 
     editMap(){
-      vlayer = new OpenLayers.Layer.Vector( "Editable" );
+      vlayer = new OpenLayers.Layer.Vector( "Editable", {
+          strategies: [new OpenLayers.Strategy.Fixed()],
+          protocol: new OpenLayers.Protocol.HTTP({
+              url: "test.osm",   //<-- relative or absolute URL to your .osm file
+              format: new OpenLayers.Format.OSM()
+          }),
+          projection: new OpenLayers.Projection("EPSG:4326")
+      });
       map.addLayer(vlayer);
       zb = new OpenLayers.Control.ZoomBox({
           title: "Zoom box: zoom clicking and dragging",
@@ -88,6 +95,7 @@ var OsmEditer = React.createClass({
               title:"Zoom to the max extent",
               text: "World"
           }),
+          //new OpenLayers.Control.DrawFeature.cancle(),
       ]);
       
       nav = new OpenLayers.Control.NavigationHistory({
