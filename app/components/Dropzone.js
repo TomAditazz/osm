@@ -7,7 +7,7 @@ var DropzoneDemo = React.createClass({
       console.log('Accepted files: ', acceptedFiles[0].preview);
       console.log('Rejected files: ', rejectedFiles);
             //Initialise the vector layer using OpenLayers.Format.OSM
-      var layer = new OpenLayers.Layer.Vector("Polygon", {
+      layer = new OpenLayers.Layer.Vector("Polygon", {
           strategies: [new OpenLayers.Strategy.Fixed()],
           protocol: new OpenLayers.Protocol.HTTP({
               url: acceptedFiles[0].preview,   //<-- relative or absolute URL to your .osm file

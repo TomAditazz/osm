@@ -20649,6 +20649,7 @@
 	      var lat=50.88;
 	      var lon=-1.54;
 	      var zoom=13;
+
 	      map = new OpenLayers.Map ("map", {
 	        controls:[
 	            new OpenLayers.Control.Navigation(),
@@ -20683,6 +20684,7 @@
 	    },
 
 	    editMap(){
+	      layer.destroy();
 	      vlayer = new OpenLayers.Layer.Vector( "Editable", {
 	          strategies: [new OpenLayers.Strategy.Fixed()],
 	          protocol: new OpenLayers.Protocol.HTTP({
@@ -20719,10 +20721,10 @@
 	              {title:'Draw line', text: 'Line'}),
 	          new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Polygon,
 	              {title:'Draw Polygon', text: 'Polygon'}),
-	          new OpenLayers.Control.ZoomToMaxExtent({
-	              title:"Zoom to the max extent",
-	              text: "World"
-	          }),
+	          //new OpenLayers.Control.ZoomToMaxExtent({
+	          //    title:"Zoom to the max extent",
+	          //    text: "World"
+	          //}),
 	          //new OpenLayers.Control.DrawFeature.cancle(),
 	      ]);
 	      
@@ -20757,7 +20759,8 @@
 	          React.createElement(Dropzonedemo, null), 
 	          React.createElement("div", {id: "map"}, 
 	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Initial Map"), 
-	            React.createElement("button", {type: "button", onClick: this.editMap}, "Edit Map")
+	            React.createElement("button", {type: "button", onClick: this.editMap}, "Edit Map"), 
+	            React.createElement("button", {type: "button"}, "Output Map")
 	          )
 	        )
 	      )
@@ -20780,7 +20783,7 @@
 	      console.log('Accepted files: ', acceptedFiles[0].preview);
 	      console.log('Rejected files: ', rejectedFiles);
 	            //Initialise the vector layer using OpenLayers.Format.OSM
-	      var layer = new OpenLayers.Layer.Vector("Polygon", {
+	      layer = new OpenLayers.Layer.Vector("Polygon", {
 	          strategies: [new OpenLayers.Strategy.Fixed()],
 	          protocol: new OpenLayers.Protocol.HTTP({
 	              url: acceptedFiles[0].preview,   //<-- relative or absolute URL to your .osm file

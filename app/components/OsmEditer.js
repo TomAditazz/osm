@@ -21,6 +21,7 @@ var OsmEditer = React.createClass({
       var lat=50.88;
       var lon=-1.54;
       var zoom=13;
+
       map = new OpenLayers.Map ("map", {
         controls:[
             new OpenLayers.Control.Navigation(),
@@ -55,6 +56,7 @@ var OsmEditer = React.createClass({
     },
 
     editMap(){
+      layer.destroy();
       vlayer = new OpenLayers.Layer.Vector( "Editable", {
           strategies: [new OpenLayers.Strategy.Fixed()],
           protocol: new OpenLayers.Protocol.HTTP({
@@ -91,10 +93,10 @@ var OsmEditer = React.createClass({
               {title:'Draw line', text: 'Line'}),
           new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Polygon,
               {title:'Draw Polygon', text: 'Polygon'}),
-          new OpenLayers.Control.ZoomToMaxExtent({
-              title:"Zoom to the max extent",
-              text: "World"
-          }),
+          //new OpenLayers.Control.ZoomToMaxExtent({
+          //    title:"Zoom to the max extent",
+          //    text: "World"
+          //}),
           //new OpenLayers.Control.DrawFeature.cancle(),
       ]);
       
@@ -130,6 +132,7 @@ var OsmEditer = React.createClass({
           <div id="map">
             <button type="button" onClick={this.initialMap}>Initial Map</button>
             <button type="button" onClick={this.editMap}>Edit Map</button>
+            <button type="button">Output Map</button>
           </div>
         </div>
       </div>
