@@ -67,7 +67,7 @@ var OsmEditer = React.createClass({
           <Dropzonedemo />
           <div id="map">
             <button type="button" onClick={this.initialMap}>Initial Map</button>
-            <button type="button" onClick={this.updateLayers}>Add Layers</button> 
+            /*<button type="button" onClick={this.updateLayers}>Add Layers</button> */
           </div>
         </div>
       </div>
