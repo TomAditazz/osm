@@ -55,8 +55,6 @@
 	    return (
 	      React.createElement("div", {className: "container"}, 
 	        React.createElement("div", {className: "row"}, 
-	          "ts", 
-	          React.createElement(ListContainer, null), 
 	          React.createElement(OsmEditer, null)
 	        )
 	      )
@@ -20696,8 +20694,7 @@
 	        React.createElement("div", {className: "col-sm-12"}, 
 	          React.createElement(Dropzonedemo, null), 
 	          React.createElement("div", {id: "map"}, 
-	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Initial Map"), 
-	            React.createElement("button", {type: "button", onClick: this.updateLayers}, "Add Layers")
+	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Initial Map")
 	          )
 	        )
 	      )
