@@ -17,7 +17,10 @@
     "axios": "^0.4.2",
     "events": "^1.0.2",
     "flux": "^2.0.1",
-    "react": "^0.12.1",
+    "react": "^0.14.8",
+    "react-dom": "^15.3.2",
+    "react-dropzone": "^3.7.3",
+    "react-fileupload": "^2.4.0",
     "script-loader": "^0.7.0"
   },
   "devDependencies": {
