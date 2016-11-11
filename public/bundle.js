@@ -20682,6 +20682,60 @@
 	      map.addLayers([layer]);
 	    },
 
+	    editMap(){
+	      vlayer = new OpenLayers.Layer.Vector( "Editable" );
+	      map.addLayer(vlayer);
+	      zb = new OpenLayers.Control.ZoomBox({
+	          title: "Zoom box: zoom clicking and dragging",
+	          text: "Zoom"
+	      });
+
+	      var panel = new OpenLayers.Control.Panel({
+	          defaultControl: zb,
+	          createControlMarkup: function(control) {
+	              var button = document.createElement('button'),
+	                  iconSpan = document.createElement('span'),
+	                  textSpan = document.createElement('span');
+	              iconSpan.innerHTML = '&nbsp;';
+	              button.appendChild(iconSpan);
+	              if (control.text) {
+	                  textSpan.innerHTML = control.text;
+	              }
+	              button.appendChild(textSpan);
+	              return button;
+	          }
+	      });
+
+	      panel.addControls([
+	          zb,
+	          new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Path,
+	              {title:'Draw line', text: 'Line'}),
+	          new OpenLayers.Control.DrawFeature(vlayer, OpenLayers.Handler.Polygon,
+	              {title:'Draw Polygon', text: 'Polygon'}),
+	          new OpenLayers.Control.ZoomToMaxExtent({
+	              title:"Zoom to the max extent",
+	              text: "World"
+	          }),
+	      ]);
+	      
+	      nav = new OpenLayers.Control.NavigationHistory({
+	          previousOptions: {
+	              title: "Go to previous map position",
+	              text: "Prev"
+	          },
+	          nextOptions: {
+	              title: "Go to next map position",
+	              text: "Next"
+	          },
+	          displayClass: "navHistory"
+	      });
+	      // parent control must be added to the map
+	      map.addControl(nav);
+	      panel.addControls([nav.next, nav.previous]);
+	      
+	      map.addControl(panel);
+	    },
+
 	  render: function(){
 	    var options={
 	        baseUrl:'http://127.0.0.1:3000/',
@@ -20694,7 +20748,8 @@
 	        React.createElement("div", {className: "col-sm-12"}, 
 	          React.createElement(Dropzonedemo, null), 
 	          React.createElement("div", {id: "map"}, 
-	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Initial Map")
+	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Initial Map"), 
+	            React.createElement("button", {type: "button", onClick: this.editMap}, "Edit Map")
 	          )
 	        )
 	      )
