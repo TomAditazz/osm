@@ -20651,7 +20651,7 @@
 	      var lat=50.88;
 	      var lon=-1.54;
 	      var zoom=13;
-	      var map = new OpenLayers.Map ("map", {
+	      map = new OpenLayers.Map ("map", {
 	        controls:[
 	            new OpenLayers.Control.Navigation(),
 	            new OpenLayers.Control.PanZoomBar(),
@@ -20669,6 +20669,9 @@
 	      var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
 	      
 	      map.setCenter (lonLat, zoom);
+	    },
+
+	    updateLayers(){
 	      //Initialise the vector layer using OpenLayers.Format.OSM
 	      var layer = new OpenLayers.Layer.Vector("Polygon", {
 	          strategies: [new OpenLayers.Strategy.Fixed()],
@@ -20680,10 +20683,7 @@
 	      });
 	      map.addLayers([layer]);
 	    },
-	    onDrop: function (acceptedFiles, rejectedFiles) {
-	      console.log('Accepted files: ', acceptedFiles);
-	      console.log('Rejected files: ', rejectedFiles);
-	    },
+
 	  render: function(){
 	    var options={
 	        baseUrl:'http://127.0.0.1:3000/',
@@ -20696,7 +20696,8 @@
 	        React.createElement("div", {className: "col-sm-12"}, 
 	          React.createElement(Dropzonedemo, null), 
 	          React.createElement("div", {id: "map"}, 
-	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Inital Map")
+	            React.createElement("button", {type: "button", onClick: this.initialMap}, "Initial Map"), 
+	            React.createElement("button", {type: "button", onClick: this.updateLayers}, "Add Layers")
 	          )
 	        )
 	      )
@@ -20716,7 +20717,19 @@
 	var DropzoneDemo = React.createClass({displayName: "DropzoneDemo",
 	    onDrop: function (acceptedFiles, rejectedFiles) {
 	      console.log('Accepted files: ', acceptedFiles);
+	      console.log('Accepted files: ', acceptedFiles[0].preview);
 	      console.log('Rejected files: ', rejectedFiles);
+	            //Initialise the vector layer using OpenLayers.Format.OSM
+	      var layer = new OpenLayers.Layer.Vector("Polygon", {
+	          strategies: [new OpenLayers.Strategy.Fixed()],
+	          protocol: new OpenLayers.Protocol.HTTP({
+	              url: acceptedFiles[0].preview,   //<-- relative or absolute URL to your .osm file
+	              format: new OpenLayers.Format.OSM()
+	          }),
+	          projection: new OpenLayers.Projection("EPSG:4326")
+	      });
+	      console.log(layer);
+	      map.addLayers([layer]);
 	    },
 
 	    render: function () {

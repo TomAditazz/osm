@@ -21,7 +21,7 @@ var OsmEditer = React.createClass({
       var lat=50.88;
       var lon=-1.54;
       var zoom=13;
-      var map = new OpenLayers.Map ("map", {
+      map = new OpenLayers.Map ("map", {
         controls:[
             new OpenLayers.Control.Navigation(),
             new OpenLayers.Control.PanZoomBar(),
@@ -39,6 +39,9 @@ var OsmEditer = React.createClass({
       var lonLat = new OpenLayers.LonLat(lon, lat).transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:900913"));
       
       map.setCenter (lonLat, zoom);
+    },
+
+    updateLayers(){
       //Initialise the vector layer using OpenLayers.Format.OSM
       var layer = new OpenLayers.Layer.Vector("Polygon", {
           strategies: [new OpenLayers.Strategy.Fixed()],
@@ -50,10 +53,7 @@ var OsmEditer = React.createClass({
       });
       map.addLayers([layer]);
     },
-    onDrop: function (acceptedFiles, rejectedFiles) {
-      console.log('Accepted files: ', acceptedFiles);
-      console.log('Rejected files: ', rejectedFiles);
-    },
+
   render: function(){
     var options={
         baseUrl:'http://127.0.0.1:3000/',
@@ -66,7 +66,8 @@ var OsmEditer = React.createClass({
         <div className="col-sm-12">
           <Dropzonedemo />
           <div id="map">
-            <button type="button" onClick={this.initialMap}>Inital Map</button>
+            <button type="button" onClick={this.initialMap}>Initial Map</button>
+            <button type="button" onClick={this.updateLayers}>Add Layers</button> 
           </div>
         </div>
       </div>
