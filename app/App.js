@@ -9,8 +9,10 @@ var App = React.createClass({
     return (
       <div className="container">
         <div className="row">
+          /*
           ts
           <ListContainer />
+          */
           <OsmEditer />
         </div>
       </div>
